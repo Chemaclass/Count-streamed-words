@@ -12,7 +12,11 @@ class OrderedPresenter
     public function __construct(array $words)
     {
         usort($words, function (WordAmount $a, WordAmount $b) {
-            return $b->amount() <=> $a->amount();
+            if ($a->amount() === $b->amount()) {
+                return $a->word() <=> $b->word();
+            } else {
+                return $b->amount() <=> $a->amount();
+            }
         });
         $this->orderedWords = $words;
     }
