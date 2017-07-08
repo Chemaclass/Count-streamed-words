@@ -12,16 +12,19 @@ final class WordsStreamCounter
     public function __construct(string $rawString)
     {
         $words = preg_split('/(\W+)/', $rawString);
-        $lowerWords = array_map('strtolower', $words);
-        $sanitizeWords = array_filter($lowerWords, 'strlen');
-        $countWords = array_count_values($sanitizeWords);
+        $countWords = array_count_values(
+            array_map(
+                'strtolower',
+                array_filter($words, 'strlen')
+            )
+        );
         $this->wordAmounts = $this->buildWordAmounts($countWords);
     }
 
     private function buildWordAmounts(array $countWords): array
     {
         return array_map(function ($word, $amount) {
-            return new WordAmount($word, $amount);
+            return new WordAmount((string)$word, $amount);
         }, array_keys($countWords), $countWords);
     }
 
