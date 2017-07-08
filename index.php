@@ -12,12 +12,12 @@ final class Index
     {
         $stream = stream_get_contents(fopen("php://stdin", "r"));
         $wordsCounter = new WordsStreamCounter($stream);
-        return $this->presenterFactory($type, $wordsCounter);
+        return $this->presenterFactory($type, $wordsCounter());
     }
 
-    private function presenterFactory(string $type, WordsStreamCounter $wordsCounter)
+    private function presenterFactory(string $type, array $wordAmounts)
     {
-        $presenter = new OrderedPresenter($wordsCounter());
+        $presenter = new OrderedPresenter($wordAmounts);
         if (self::PRESENTER_TYPE_JSON === $type) {
             return (string)($presenter);
         }
