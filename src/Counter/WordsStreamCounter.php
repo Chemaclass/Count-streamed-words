@@ -27,11 +27,6 @@ final class WordsStreamCounter
 
     public function __invoke(): array
     {
-        return $this->wordAmounts();
-    }
-
-    public function wordAmounts(): array
-    {
         return $this->wordAmounts;
     }
 }
