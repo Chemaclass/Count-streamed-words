@@ -22,7 +22,11 @@ class OrderedPresenterTest extends TestCase
         $presenter = new OrderedPresenter([
             new WordAmount('zero', 1),
             new WordAmount('one', 1),
+            new WordAmount('two', 1),
         ]);
-        $this->assertEquals('one: 1' . PHP_EOL . 'zero: 1' . PHP_EOL, $presenter());
+        $this->assertEquals(
+            'one: 1' . PHP_EOL . 'two: 1' . PHP_EOL . 'zero: 1' . PHP_EOL,
+            $presenter()
+        );
     }
 }
