@@ -12,9 +12,13 @@ class OrderedPresenterTest extends TestCase
     {
         $presenter = new OrderedPresenter([
             new WordAmount('one', 1),
+            new WordAmount('three', 3),
             new WordAmount('two', 2),
         ]);
-        $this->assertEquals('two: 2' . PHP_EOL . 'one: 1' . PHP_EOL, $presenter());
+        $this->assertEquals(
+            'three: 3' . PHP_EOL . 'two: 2' . PHP_EOL . 'one: 1' . PHP_EOL,
+            $presenter()
+        );
     }
 
     public function testSameAmountByAlpha()
@@ -26,6 +30,23 @@ class OrderedPresenterTest extends TestCase
         ]);
         $this->assertEquals(
             'one: 1' . PHP_EOL . 'two: 1' . PHP_EOL . 'zero: 1' . PHP_EOL,
+            $presenter()
+        );
+    }
+
+    public function testMixAmountAndAlpha()
+    {
+        $presenter = new OrderedPresenter([
+            new WordAmount('twoZ', 2),
+            new WordAmount('zero', 1),
+            new WordAmount('twoA', 2),
+            new WordAmount('four', 4),
+        ]);
+        $this->assertEquals(
+            'four: 4' . PHP_EOL
+            . 'twoA: 2' . PHP_EOL
+            . 'twoZ: 2' . PHP_EOL
+            . 'zero: 1' . PHP_EOL,
             $presenter()
         );
     }
