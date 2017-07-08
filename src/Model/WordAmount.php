@@ -26,7 +26,7 @@ class WordAmount implements \JsonSerializable
         return $this->amount;
     }
 
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         return get_object_vars($this);
     }
