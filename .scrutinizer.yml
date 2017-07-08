@@ -1,2 +1,11 @@
 checks:
     php: true
+
+build:
+    tests:
+        override:
+            -
+                command: 'vendor/bin/phpunit --coverage-clover=src/*'
+                coverage:
+                    file: 'src/*'
+                    format: 'clover'
