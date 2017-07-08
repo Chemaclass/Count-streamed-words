@@ -14,9 +14,8 @@ class OrderedPresenter
         usort($words, function (WordAmount $a, WordAmount $b) {
             if ($a->amount() === $b->amount()) {
                 return $a->word() <=> $b->word();
-            } else {
-                return $b->amount() <=> $a->amount();
             }
+            return $b->amount() <=> $a->amount();
         });
         $this->orderedWords = $words;
     }
