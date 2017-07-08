@@ -1,0 +1,25 @@
+{
+    "name": "chemaclass/count-stream-words",
+    "require": {
+        "phpunit/phpunit": "^6.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        },
+        "files" : [
+            "helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Chemaclass",
+            "email": "chemaclass@outlook.es"
+        }
+    ]
+}
