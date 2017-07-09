@@ -16,6 +16,13 @@ class WordAmount implements \JsonSerializable
         $this->amount = $amount;
     }
 
+    public static function buildCollectionFromArray(array $countWords): array
+    {
+        return array_map(function ($word, $amount) {
+            return new WordAmount((string)$word, $amount);
+        }, array_keys($countWords), $countWords);
+    }
+
     public function word(): string
     {
         return $this->word;

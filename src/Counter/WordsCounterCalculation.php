@@ -28,13 +28,7 @@ class WordsCounterCalculation
                     + ($final[$wordAmount->word()] ?? 0);
             }
         }
-        return $this->buildWordAmounts($final);
+        return WordAmount::buildCollectionFromArray($final);
     }
 
-    private function buildWordAmounts(array $countWords): array
-    {
-        return array_map(function ($word, $amount) {
-            return new WordAmount((string)$word, $amount);
-        }, array_keys($countWords), $countWords);
-    }
 }

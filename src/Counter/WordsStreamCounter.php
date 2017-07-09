@@ -18,14 +18,7 @@ final class WordsStreamCounter
                 array_filter($words, 'strlen')
             )
         );
-        $this->wordAmounts = $this->buildWordAmounts($countWords);
-    }
-
-    private function buildWordAmounts(array $countWords): array
-    {
-        return array_map(function ($word, $amount) {
-            return new WordAmount((string)$word, $amount);
-        }, array_keys($countWords), $countWords);
+        $this->wordAmounts = WordAmount::buildCollectionFromArray($countWords);
     }
 
     public function __invoke(): array
