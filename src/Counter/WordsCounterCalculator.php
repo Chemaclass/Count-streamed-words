@@ -19,16 +19,18 @@ class WordsCounterCalculator
 
     public function __invoke(): array
     {
-        $final = [];
+        $finalAmounts = [];
         /** @var WordsStreamCounter $streamCounter */
         foreach ($this->wordsCounterCollection as $streamCounter) {
             /** @var WordAmount $wordAmount */
             foreach ($streamCounter() as $wordAmount) {
-                $final[$wordAmount->word()] = $wordAmount->amount()
-                    + ($final[$wordAmount->word()] ?? 0);
+                $word = $wordAmount->word();
+                if (!isset($finalAmounts[$word])) {
+                    $finalAmounts[$word] = 0;
+                }
+                $finalAmounts[$word] += $wordAmount->amount();
             }
         }
-        return WordAmount::buildCollectionFromArray($final);
+        return WordAmount::buildCollectionFromArray($finalAmounts);
     }
-
 }
