@@ -7,7 +7,7 @@ use Counter\WordsStreamCounter;
 use Model\WordAmount;
 use PHPUnit\Framework\TestCase;
 
-class WordsStreamCalculationTest extends TestCase
+class WordsCounterCalculatorTest extends TestCase
 {
     public function testCalculation()
     {

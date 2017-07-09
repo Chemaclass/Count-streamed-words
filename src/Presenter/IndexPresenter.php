@@ -17,7 +17,7 @@ final class IndexPresenter
     /**
      * @param resource $wordsResource
      */
-    function __construct($wordsResource)
+    public function __construct($wordsResource)
     {
         $this->wordStreamCollection = $this->buildCollection($wordsResource);
     }
