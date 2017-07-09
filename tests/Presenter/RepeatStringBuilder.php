@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\AcceptanceCriteria;
+namespace Tests\Presenter;
 
 final class RepeatStringBuilder
 {

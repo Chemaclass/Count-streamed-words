@@ -11,12 +11,14 @@ final class IndexPresenter
 
     const SPECIAL_CHARS_PATTERN = '/[\'^£$%&*()}{@#~?><>,|=+¬-]/';
 
-    public function __invoke(string $type = '')
+    /** @var WordsStreamCounter[] */
+    private $wordStreamCollection;
+
+    function __construct()
     {
         $wordsResource = fopen("php://stdin", "r");
-        $counterCalculator = new WordsCounterCalculator($this->buildCollection($wordsResource));
+        $this->wordStreamCollection = $this->buildCollection($wordsResource);
         fclose($wordsResource);
-        return $this->presenterFactory($type, $counterCalculator());
     }
 
     private function buildCollection($wordsResource): array
@@ -35,6 +37,12 @@ final class IndexPresenter
             $counterCollection[] = new WordsStreamCounter($rawString);
         }
         return $counterCollection;
+    }
+
+    public function __invoke(string $type = '')
+    {
+        $counterCalculator = new WordsCounterCalculator($this->wordStreamCollection);
+        return $this->presenterFactory($type, $counterCalculator());
     }
 
     private function presenterFactory(string $type, array $wordAmounts)
