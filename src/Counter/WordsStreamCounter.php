@@ -6,7 +6,7 @@ use Model\WordAmount;
 
 final class WordsStreamCounter
 {
-    /** @var array */
+    /** @var WordAmount[] */
     private $wordAmounts;
 
     public function __construct(string $rawString)
