@@ -2,7 +2,7 @@
 
 namespace Tests\Counter;
 
-use Counter\WordsCounterCalculation;
+use Counter\WordsCounterCalculator;
 use Counter\WordsStreamCounter;
 use Model\WordAmount;
 use PHPUnit\Framework\TestCase;
@@ -16,7 +16,7 @@ class WordsStreamCalculationTest extends TestCase
         $collection[] = new WordsStreamCounter('tres tres tres');
         $collection[] = new WordsStreamCounter('cuatro cuatro cuatro');
         $collection[] = new WordsStreamCounter('cuatro cero');
-        $counterCalculator = new WordsCounterCalculation($collection);
+        $counterCalculator = new WordsCounterCalculator($collection);
 
         $this->assertEquals([
             new WordAmount('uno', 1),

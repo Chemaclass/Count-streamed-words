@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Counter;
 
 use Model\WordAmount;
 
-class WordsCounterCalculation
+class WordsCounterCalculator
 {
     /** @var WordsStreamCounter[] */
     private $wordsCounterCollection;

@@ -2,7 +2,7 @@
 
 namespace Presenter;
 
-use Counter\WordsCounterCalculation;
+use Counter\WordsCounterCalculator;
 use Counter\WordsStreamCounter;
 
 final class IndexPresenter
@@ -14,9 +14,8 @@ final class IndexPresenter
     public function __invoke(string $type = '')
     {
         $wordsResource = fopen("php://stdin", "r");
-        $counterCalculator = new WordsCounterCalculation($this->buildCollection($wordsResource));
+        $counterCalculator = new WordsCounterCalculator($this->buildCollection($wordsResource));
         fclose($wordsResource);
-
         return $this->presenterFactory($type, $counterCalculator());
     }
 
