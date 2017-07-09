@@ -9,9 +9,10 @@ class IndexPresenterTest extends TestCase
 {
     public function testStress()
     {
+        $this->markTestSkipped('This test take a while to process this amount of data');
         $wordLowerQty = 10000;
-        $wordMediumQty = $wordLowerQty * 2;
-        $wordHigherQty = $wordMediumQty * 3;
+        $wordMediumQty = 100000;
+        $wordHigherQty = 1000000;
 
         $stringBuilder = new RepeatStringBuilder([
             'word_lower' => $wordLowerQty,
@@ -19,13 +20,13 @@ class IndexPresenterTest extends TestCase
             'word_medium' => $wordMediumQty,
         ]);
 
-        $temp = tmpfile();
-        fwrite($temp, $stringBuilder());
-        fseek($temp, 0);
+        $tempResource = tmpfile();
+        fwrite($tempResource, $stringBuilder());
+        fseek($tempResource, 0);
         $this->assertEquals(
             "word_higher: $wordHigherQty\nword_medium: $wordMediumQty\nword_lower: $wordLowerQty\n",
-            (new IndexPresenter($temp))()
+            (new IndexPresenter($tempResource))()
         );
-        fclose($temp);
+        fclose($tempResource);
     }
 }
