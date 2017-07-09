@@ -37,7 +37,7 @@ class ACTest extends TestCase
     {
         $wordLowerQty = 1000;
         $wordMediumQty = $wordLowerQty * 2;
-        $wordHigherQty = $wordMediumQty * 2;
+        $wordHigherQty = $wordMediumQty * 3;
 
         $stringBuilder = new RepeatStringBuilder([
             'word_lower' => $wordLowerQty,

@@ -14,25 +14,28 @@ final class IndexPresenter
     public function __invoke(string $type = '')
     {
         $wordsResource = fopen("php://stdin", "r");
-        $wordsCounterCollection = [];
+        $counterCalculator = new WordsCounterCalculation($this->buildCollection($wordsResource));
+        fclose($wordsResource);
+
+        return $this->presenterFactory($type, $counterCalculator());
+    }
+
+    private function buildCollection($wordsResource): array
+    {
+        $counterCollection = [];
         $rawString = '';
         while (false !== ($char = fgetc($wordsResource))) {
             if (preg_match(self::SPECIAL_CHARS_PATTERN, $char)) {
-                $wordsCounterCollection[] = new WordsStreamCounter($rawString);
+                $counterCollection[] = new WordsStreamCounter($rawString);
                 $rawString = '';
             } else {
                 $rawString .= $char;
             }
         }
-        fclose($wordsResource);
-
         if (!empty($rawString)) {
-            $wordsCounterCollection[] = new WordsStreamCounter($rawString);
+            $counterCollection[] = new WordsStreamCounter($rawString);
         }
-
-        $counterCalculator = new WordsCounterCalculation($wordsCounterCollection);
-
-        return $this->presenterFactory($type, $counterCalculator());
+        return $counterCollection;
     }
 
     private function presenterFactory(string $type, array $wordAmounts)
