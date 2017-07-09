@@ -14,11 +14,12 @@ final class IndexPresenter
     /** @var WordsStreamCounter[] */
     private $wordStreamCollection;
 
-    function __construct()
+    /**
+     * @param resource $wordsResource
+     */
+    function __construct($wordsResource)
     {
-        $wordsResource = fopen("php://stdin", "r");
         $this->wordStreamCollection = $this->buildCollection($wordsResource);
-        fclose($wordsResource);
     }
 
     private function buildCollection($wordsResource): array

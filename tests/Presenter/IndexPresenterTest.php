@@ -3,12 +3,13 @@
 namespace Tests\Presenter;
 
 use PHPUnit\Framework\TestCase;
+use Presenter\IndexPresenter;
 
 class IndexPresenterTest extends TestCase
 {
     public function testStress()
     {
-        $wordLowerQty = 1000;
+        $wordLowerQty = 10000;
         $wordMediumQty = $wordLowerQty * 2;
         $wordHigherQty = $wordMediumQty * 3;
 
@@ -18,10 +19,13 @@ class IndexPresenterTest extends TestCase
             'word_medium' => $wordMediumQty,
         ]);
 
-        $cmd = sprintf('echo "%s" | php index.php',$stringBuilder());
+        $temp = tmpfile();
+        fwrite($temp, $stringBuilder());
+        fseek($temp, 0);
         $this->assertEquals(
             "word_higher: $wordHigherQty\nword_medium: $wordMediumQty\nword_lower: $wordLowerQty\n",
-            shell_exec($cmd)
+            (new IndexPresenter($temp))()
         );
+        fclose($temp);
     }
 }
