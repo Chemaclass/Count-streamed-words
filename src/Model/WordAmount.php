@@ -10,7 +10,7 @@ class WordAmount implements \JsonSerializable
     /** @var int */
     private $amount;
 
-    public function __construct(string $word, int $amount)
+    public function __construct(string $word, int $amount = 1)
     {
         $this->word = $word;
         $this->amount = $amount;
